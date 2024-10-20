@@ -1,3 +1,5 @@
+package com.check_maven;
+
 /**
  * @description:
  *
@@ -37,33 +39,57 @@
  * grid[i][j] 的值为 '0' 或 '1'
  *
  */
-class Solution8 {
+public class Solution8 {
+    public static void main(String[] args) {
+        // 你的测试代码可以放在这里
+        char[][] grid = {
+                {'1', '1', '0', '0', '0'},
+                {'1', '1', '0', '0', '0'},
+                {'1', '0', '1', '0', '0'},
+                {'0', '0', '0', '1', '1'}
+        };
+
+        Solution8 solution = new Solution8();
+        int numIslands = solution.numIslands(grid);
+        System.out.println("岛屿数量: " + numIslands);
+    }
+
     void dfs(char[][] grid, int r, int c) {
         int nr = grid.length;
         int nc = grid[0].length;
 
-        if (r < 0 || c > 0 || r >= nr || c >= nc || grid[r][c] == '0') {
+        // 判断是否越界或者是否遇到水
+        if (r < 0 || c < 0 || r >= nr || c >= nc || grid[r][c] == '0') {
             return;
         }
-        grid[r][c] = '1';
-        dfs(grid, r - 1, c);
-        dfs(grid, r + 1, c);
-        dfs(grid, r, c - 1);
-        dfs(grid, r, c + 1);
+
+        // 将当前陆地格子标记为 '0'，表示已经访问过
+        grid[r][c] = '0';
+
+        // 深度优先搜索，上下左右四个方向
+        dfs(grid, r - 1, c); // 上
+        dfs(grid, r + 1, c); // 下
+        dfs(grid, r, c - 1); // 左
+        dfs(grid, r, c + 1); // 右
     }
 
     public int numIslands(char[][] grid) {
-        if (grid == null || grid.length <= 1) {
+        if (grid == null || grid.length == 0) {
             return 0;
         }
 
         int nr = grid.length;
         int nc = grid[0].length;
         int num_islands = 0;
+
+        // 遍历整个网格
         for (int r = 0; r < nr; ++r) {
-            for (int c = 0; r < nc; ++c) {
+            for (int c = 0; c < nc; ++c) {
+                // 如果遇到陆地格子
                 if (grid[r][c] == '1') {
+                    // 统计岛屿数量
                     ++num_islands;
+                    // 使用DFS将整个岛屿标记为已经访问过
                     dfs(grid, r, c);
                 }
             }
