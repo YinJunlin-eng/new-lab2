@@ -54,6 +54,12 @@ public class Solution8 {
         System.out.println("岛屿数量: " + numIslands);
     }
 
+    /**
+     * 深度优先搜索（DFS）函数，用于标记已经访问过的陆地格子
+     * @param grid 二维网格
+     * @param r 当前行索引
+     * @param c 当前列索引
+     */
     void dfs(char[][] grid, int r, int c) {
         int nr = grid.length;
         int nc = grid[0].length;
@@ -73,6 +79,11 @@ public class Solution8 {
         dfs(grid, r, c + 1); // 右
     }
 
+    /**
+     * 计算网格中岛屿的数量
+     * @param grid 二维网格
+     * @return 岛屿的数量
+     */
     public int numIslands(char[][] grid) {
         if (grid == null || grid.length == 0) {
             return 0;
